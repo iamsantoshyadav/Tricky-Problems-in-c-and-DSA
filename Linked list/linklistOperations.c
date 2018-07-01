@@ -8,14 +8,14 @@ typedef struct node
 }node;
 //################################################################FNCTION DECLEARATION PART############################################################################
 
-int *display(node *start);
-int *insert(node *start,int data);
-int *compareLinLists(node *firstNode,node *secondNode);
-int *mergeTwoLinkedList(node *first,node *second,int data);
-int *findmergePoint(node *first,node *second);
-int *makeCycle();
-int *detectLoop(node *loopNode);
-int *getLoopAdress(node *loopNode);
+node *display(node *start);
+node *insert(node *start,int data);
+node *compareLinLists(node *firstNode,node *secondNode);
+node *mergeTwoLinkedList(node *first,node *second,int data);
+node *findmergePoint(node *first,node *second);
+node *makeCycle();
+node *detectLoop(node *loopNode);
+node *getLoopAdress(node *loopNode);
 
 
 //###################################################################FUNCTION DEFINECTION PART###################################################################
@@ -44,7 +44,7 @@ void main()
     makeCycle();
 }
 //################################################################################################################################################################################
-int *insert(node *start,int data)
+node *insert(node *start,int data)
 {
     node *newNode,*pre;
     newNode=(node*)malloc(sizeof(node));
@@ -69,7 +69,7 @@ int *insert(node *start,int data)
     return(start);
 }
 //#######################################################################################################################################################################################
-int *display(node *start)
+node *display(node *start)
 {
     node *adpointer;
     if(start==NULL)
@@ -87,7 +87,7 @@ int *display(node *start)
     }
 }
 //#############################################################################################################################################################################################
-int *compareLinLists(node *firstNode,node *secondNode)
+node *compareLinLists(node *firstNode,node *secondNode)
 {
     while(firstNode!=NULL&&secondNode!=NULL)
     {
@@ -104,7 +104,7 @@ int *compareLinLists(node *firstNode,node *secondNode)
         printf("\nList is Identical\n\n");
     }
 }
-int *mergeTwoLinkedList(node *first,node *second,int data)
+node *mergeTwoLinkedList(node *first,node *second,int data)
 {
     node *last,*sec;
     last=first;
@@ -126,7 +126,7 @@ int *mergeTwoLinkedList(node *first,node *second,int data)
 }
 //#########################################################################################################################################################################
 
-int *findmergePoint(node *first,node *second)
+node *findmergePoint(node *first,node *second)
 {
 
     node *fir,*sec;
@@ -152,7 +152,7 @@ int *findmergePoint(node *first,node *second)
     }
    HOME: return;
 }
-int *makeCycle()
+node *makeCycle()
 {
     node *cycle=NULL;
     node *position;
@@ -178,7 +178,7 @@ int *makeCycle()
     cycle->add=position;//<<<<<<<<<<----------Loop is created at 3 position
     detectLoop(cycle);
 }
-int *detectLoop(node *loopeNode)
+node *detectLoop(node *loopeNode)
 {
     node *trot,*here,*loopAdd;
     trot=loopeNode;
@@ -196,7 +196,7 @@ int *detectLoop(node *loopeNode)
     }
     trot=loopeNode;
     here=loopAdd;
-    while(trot=NULL&&here!=NULL)
+    while(trot!=NULL&&here!=NULL)
     {
         if(trot==here)
         {
