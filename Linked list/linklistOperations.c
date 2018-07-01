@@ -11,6 +11,11 @@ typedef struct node
 int *display(node *start);
 int *insert(node *start,int data);
 int *compareLinLists(node *firstNode,node *secondNode);
+int *mergeTwoLinkedList(node *first,node *second,int data);
+int *findmergePoint(node *first,node *second);
+int *makeCycle();
+int *detectLoop(node *loopNode);
+int *getLoopAdress(node *loopNode);
 
 
 //###################################################################FUNCTION DEFINECTION PART###################################################################
@@ -21,15 +26,22 @@ void main()
     insert(first,2);
     insert(first,3);
     insert(first,4);
-    second=insert(second,1);
-    insert(second,2);
-    insert(second,3);
+    second=insert(second,7);
+    insert(second,5);
     insert(second,4);
+    insert(second,5);
     printf("First Node :");
     display(first);
     printf("\nSecond Node : ");
     display(second);
     compareLinLists(first,second);
+    mergeTwoLinkedList(first,second,4);
+    printf("After Merging \n");
+    display(first);
+    printf("\n");
+    display(second);
+    findmergePoint(first,second);
+    makeCycle();
 }
 //################################################################################################################################################################################
 int *insert(node *start,int data)
@@ -92,4 +104,107 @@ int *compareLinLists(node *firstNode,node *secondNode)
         printf("\nList is Identical\n\n");
     }
 }
+int *mergeTwoLinkedList(node *first,node *second,int data)
+{
+    node *last,*sec;
+    last=first;
+    sec=second;
+    while(last->add!=NULL)
+    {
+        last=last->add;
+    }
+    while(sec->add!=NULL)
+    {
+        if(sec->data==data)
+        {
+            printf("Found\n");
+            last->add=sec;
+            break;
+        }
+        sec=sec->add;
+    }
+}
+//#########################################################################################################################################################################
 
+int *findmergePoint(node *first,node *second)
+{
+
+    node *fir,*sec;
+    int position=0;
+    fir=first;
+    sec=second;
+    printf("\n");
+    while(fir!=NULL)
+    {
+        position++;
+        sec=second;
+        while(sec!=NULL)
+        {
+
+            if(sec->add==fir->add)
+            {
+                printf("Found at %d position\n",position);
+                goto HOME;
+            }
+            sec=sec->add;
+        }
+        fir=fir->add;
+    }
+   HOME: return;
+}
+int *makeCycle()
+{
+    node *cycle=NULL;
+    node *position;
+   cycle=insert(cycle,1);
+    insert(cycle,2);
+    insert(cycle,3);
+    insert(cycle,4);
+    insert(cycle,5);
+    insert(cycle,6);
+    insert(cycle,7);
+    insert(cycle,8);
+    printf("Before list is looped : ");
+    display(cycle);
+    position=cycle;
+    while(cycle->add!=NULL)
+    {
+        if(cycle->data==3)
+        {
+            position=cycle->add;
+        }
+        cycle=cycle->add;
+    }
+    cycle->add=position;//<<<<<<<<<<----------Loop is created at 3 position
+    detectLoop(cycle);
+}
+int *detectLoop(node *loopeNode)
+{
+    node *trot,*here,*loopAdd;
+    trot=loopeNode;
+    here=loopeNode;
+    while(trot!=NULL&&here!=NULL)
+    {
+        if(trot==here)
+        {
+            printf("Loop Found\n");
+            loopAdd=trot;
+            break;
+        }
+        trot=trot->add;
+        here=here->add->add;
+    }
+    trot=loopeNode;
+    here=loopAdd;
+    while(trot=NULL&&here!=NULL)
+    {
+        if(trot==here)
+        {
+            printf("Loop found at key %d \n\n",trot->data);
+            loopAdd=trot;
+            break;
+        }
+        trot=trot->add;
+        here=here->add;
+    }
+}
