@@ -12,16 +12,45 @@ node *first=NULL;
 node *insert(node *root,int data);
 node *display(node *start);
 node *getnewNode(int data);
+node *deleteNode(node *root,int data);
+node *findMin(node *root);
 //##################################### FUNCTION DEFINITION #############################################################
 void main()
 {
+    node *max;
 
     first=insert(first,10);
     first=insert(first,5);
     insert(first,41);
     insert(first,8);
+    insert(first,6);
+    insert(first,5);
+    insert(first,87);
+    insert(first,1);
+    insert(first,50);
+    insert(first,90);
+    insert(first,89);
+    insert(first,95);
     printf("Tree element : ");
     display(first);
+    /*deleteNode(first,6);
+    printf("\nafter deletion 6 : ");
+    display(first);
+    deleteNode(first,8);
+    printf("\nafter deletion 8 : ");
+    display(first);
+    deleteNode(first,41);
+    printf("\nafter deletion 41 : ");
+    display(first);
+   // printf("\nright of 87 is %d ",first->rightNode->rightNode->leftNode->data);
+    *///deleteNode(first,87);
+    printf("\nafter deletion 87 : ");
+    display(first);
+    printf("\nright = %d left = %d",first->rightNode->rightNode->rightNode->data,first->rightNode->rightNode->leftNode->data);
+    deleteNode(first,87);
+    printf("\nAfter Deletion of 87 : ");
+    display(first);
+
 
 
 
@@ -67,4 +96,64 @@ node *getnewNode(int data)
     newNode->leftNode=NULL;
     newNode->rightNode=NULL;
     return(newNode);
+}
+//##############################################################################################################################################
+node *deleteNode(node *root,int data)
+{
+    if(root==NULL)
+    {
+        return root;
+    }
+    else if(data<root->data)
+    {
+        root->leftNode=deleteNode(root->leftNode,data);
+    }
+    else if(data>root->data)
+    {
+        root->rightNode=deleteNode(root->rightNode,data);
+    }
+    else
+    {
+        if(root->leftNode==NULL&&root->rightNode==NULL)
+        {
+            free(root);
+            root=NULL;
+        }
+        else if(root->leftNode==NULL)
+        {
+            node *temp;
+            temp=root->rightNode;
+            free(root);
+            root=temp;
+
+        }
+        else if(root->rightNode==NULL)
+        {
+            node *temp;
+            temp=root->leftNode;
+            free(root);
+            root=temp;
+
+        }
+        else
+        {
+            node *minNode;
+            minNode=findMin(root->rightNode);
+            root->data=minNode->data;
+            root->rightNode=deleteNode(root->rightNode,root->data);
+        }
+    }
+    return(root);
+}
+node *findMin(node *root)
+{
+
+    node *min;
+    min=root;
+    printf("\n Root Data =  %d ",min->data);
+    while(min->leftNode!=NULL)
+    {
+        min=min->leftNode;
+    }
+    return(min);
 }
