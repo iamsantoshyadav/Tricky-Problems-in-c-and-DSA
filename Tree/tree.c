@@ -14,6 +14,9 @@ node *display(node *start);
 node *getnewNode(int data);
 node *deleteNode(node *root,int data);
 node *findMin(node *root);
+node *preOrder(node *root);
+node *postOrder(node *root);
+node *levelOrder(node *root);
 //##################################### FUNCTION DEFINITION #############################################################
 void main()
 {
@@ -44,12 +47,15 @@ void main()
     display(first);
    // printf("\nright of 87 is %d ",first->rightNode->rightNode->leftNode->data);
     *///deleteNode(first,87);
-    printf("\nafter deletion 87 : ");
-    display(first);
-    printf("\nright = %d left = %d",first->rightNode->rightNode->rightNode->data,first->rightNode->rightNode->leftNode->data);
-    deleteNode(first,87);
-    printf("\nAfter Deletion of 87 : ");
-    display(first);
+   // printf("\nafter deletion 87 : ");
+    //display(first);
+    //printf("\nright = %d left = %d",first->rightNode->rightNode->rightNode->data,first->rightNode->rightNode->leftNode->data);
+    //deleteNode(first,87);
+    //printf("\nAfter Deletion of 87 : ");
+    printf("\nPre Order Traversl : ");
+    preOrder(first);
+    printf("\nPost Order Traversl : ");
+    postOrder(first);
 
 
 
@@ -156,4 +162,44 @@ node *findMin(node *root)
         min=min->leftNode;
     }
     return(min);
+}
+node *preOrder(node *root)
+{
+    if(root==NULL)
+    {
+        return;
+    }
+    else
+    {
+        printf("%d ",root->data);
+        preOrder(root->leftNode);
+        preOrder(root->rightNode);
+    }
+}
+node *postOrder(node *root)
+{
+    if(root==NULL)
+    {
+        return;
+    }
+    else
+    {
+        postOrder(root->leftNode);
+        postOrder(root->rightNode);
+        printf("%d ",root->data);
+    }
+}
+node *levelOrder(node *root,node *left,node *right)
+{
+    if(root==NULL)
+    {
+        return;
+    }
+    else
+    {
+        printf("%d ",root->data);
+        printf("%d ",left->data);
+        printf("%d ",right-data);
+        levelOrder()
+    }
 }
